@@ -1,3 +1,28 @@
+# printar quantos acertos/ taxa de acertos tivemos
+# printar pesos testados
+
+# exercícios:
+# altere a taxa de aprendizado
+# 
+
+"""
+P: altere a quantidade de pontos desenhados de 100 para 500 - ele aprende melhor ou fica mais lento para processar?
+R: Não. Pontos que estão longe da reta não influenciam, apenas os que estão próximos à reta. O que influencia é a qualidade dos pontos inseridos (mais próximos à reta), não a quantidade.
+
+P: Modifique a função (fx) no arquivo point.py para:
+y = -2x + 0.5
+y = 0.8x - 0.3
+
+Verifique se o Perceptron consegue se adaptar a qualquer inclinação e deslocamento (bias)
+
+(coloque a função pra passar no ponto *0,0* para analisar o comportamento do bias)
+
+
+Suponha que x seja o peso de uma laranja e y seja a acidez. Laranjas do tipo A têm y > 0.5x + 0.1 e tipo B o restante.
+Modifique o arquivo point.py para refletir essa regra.
+Coloque os valores de uma nova laranja e imprima o tipo dela.
+"""
+
 import random
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -9,7 +34,7 @@ def setup():
     perceptron = Perceptron(3)
     points = [Point(random.uniform(-1, 1), random.uniform(-1, 1)) for _ in range(100)]
     training_index = [0]
-    treshold = 0.9
+    treshold = 0.99
 
 fig, ax = plt.subplots(figsize=(6, 6))
 
