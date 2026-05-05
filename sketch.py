@@ -21,6 +21,7 @@ Verifique se o Perceptron consegue se adaptar a qualquer inclinação e deslocam
 Suponha que x seja o peso de uma laranja e y seja a acidez. Laranjas do tipo A têm y > 0.5x + 0.1 e tipo B o restante.
 Modifique o arquivo point.py para refletir essa regra.
 Coloque os valores de uma nova laranja e imprima o tipo dela.
+[ A / B ] laranjas acima de y serão +1  tipo B serão -1
 """
 
 import random
