@@ -2,7 +2,7 @@ import random
 
 def f(x):
     # y = 0.3x + 0.2
-    return 0.3 * x + 0.2 # reta objetivo.
+    return 0.5 * x + 0.1# reta objetivo.
 
 class Point:
     def __init__(self, x, y):
