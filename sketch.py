@@ -18,7 +18,7 @@ Verifique se o Perceptron consegue se adaptar a qualquer inclinação e deslocam
 (coloque a função pra passar no ponto *0,0* para analisar o comportamento do bias)
 
 
-Suponha que x seja o peso de uma laranja e y seja a acidez. Laranjas do tipo A têm y > 0.5x + 0.1 e tipo B o restante.
+Suponha que x seja o peso de uma laranja e y seja a acidez. Laranjas do tipo A têm y > 0.5x + 0.1 (desenhe no geogebra pra facilitar) e tipo B o restante.
 Modifique o arquivo point.py para refletir essa regra.
 Coloque os valores de uma nova laranja e imprima o tipo dela.
 [ A / B ] laranjas acima de y serão +1  tipo B serão -1
@@ -33,9 +33,14 @@ from point import Point, f
 def setup():
     global perceptron,points,training_index, treshold
     perceptron = Perceptron(3)
-    points = [Point(random.uniform(-1, 1), random.uniform(-1, 1)) for _ in range(100)]
+    
+    # para o último exercício, seria interessante colocar de 0 a 1, pois nao existem pesos negativos.
+    # o lado esquerdo fica sem pontos
+    points = [Point(random.uniform(0, 1), random.uniform(0, 1)) for _ in range(50)] 
     training_index = [0]
-    treshold = 0.99
+    treshold = 0.85
+
+    
 
 fig, ax = plt.subplots(figsize=(6, 6))
 
@@ -88,10 +93,21 @@ def draw(frame):
         train_single_point()
     else:
         print(f'Parou o treinamento. \n Pesos w0: {perceptron.weights[0]} \n Pesos w1: {perceptron.weights[1]} \n Pesos w2: {perceptron.weights[2]} ')
+
+        ani.event_source.stop() # para a animação para inserirmos outros valores
+        nova_laranja = Point(0.3, 0.6) # passa o x e o y
+        palpite = perceptron.guess([nova_laranja.x, nova_laranja.y, nova_laranja.bias]) # passa os inputs e o bias
+        tipo = "Tipo A" if palpite == 1 else "Tipo B" # o rótulo(label) só é passado na etapa do treinamento. Agora precisamos passar um que não sabemos o resultado para saber se ele vai acertar
+        print(f"A laranja com peso {nova_laranja.x} e acidez {nova_laranja}")
+        acertou = "acertou" if palpite == nova_laranja.label else "errou"
+        print(f"A laranja com peso {nova_laranja.x} e acidez {nova_laranja.y} é do tipo {tipo} e está {acertou}")
+
+        ax.plot(nova_laranja.x, nova_laranja.y, 'o', color="orange", markersize=11, zorder=3)
+
+
     ax.set_title("Perceptron: Classificação no intervalo [-1, 1]")
 
 setup()
 
 ani = animation.FuncAnimation(fig, draw, interval=10, cache_frame_data=False)
 plt.show()
-
