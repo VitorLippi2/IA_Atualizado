@@ -17,11 +17,14 @@ Verifique se o Perceptron consegue se adaptar a qualquer inclinação e deslocam
 
 (coloque a função pra passar no ponto *0,0* para analisar o comportamento do bias)
 
+--------------------------
 
-Suponha que x seja o peso de uma laranja e y seja a acidez. Laranjas do tipo A têm y > 0.5x + 0.1 (desenhe no geogebra pra facilitar) e tipo B o restante.
-Modifique o arquivo point.py para refletir essa regra.
-Coloque os valores de uma nova laranja e imprima o tipo dela.
-[ A / B ] laranjas acima de y serão +1  tipo B serão -1
+Exercício da tabela verdade
+
+V V -> V (label 1)
+V F -> F (label -1)
+F V -> F (label -1)
+F F -> F (label -1)
 """
 
 import random
@@ -36,7 +39,12 @@ def setup():
     
     # para o último exercício, seria interessante colocar de 0 a 1, pois nao existem pesos negativos.
     # o lado esquerdo fica sem pontos
-    points = [Point(random.uniform(0, 1), random.uniform(0, 1)) for _ in range(50)] 
+    # points = [Point(random.uniform(0, 1), random.uniform(0, 1)) for _ in range(50)] 
+    points = [Point(0,0), Point(0,1), Point(1,0), Point(1,1)] # tabela verdade
+    points[0].label = -1
+    points[1].label = -1
+    points[2].label = -1
+    points[3].label = 1
     training_index = [0]
     treshold = 0.85
 
@@ -95,15 +103,17 @@ def draw(frame):
         print(f'Parou o treinamento. \n Pesos w0: {perceptron.weights[0]} \n Pesos w1: {perceptron.weights[1]} \n Pesos w2: {perceptron.weights[2]} ')
 
         ani.event_source.stop() # para a animação para inserirmos outros valores
-        nova_laranja = Point(0.3, 0.6) # passa o x e o y
-        palpite = perceptron.guess([nova_laranja.x, nova_laranja.y, nova_laranja.bias]) # passa os inputs e o bias
-        tipo = "Tipo A" if palpite == 1 else "Tipo B" # o rótulo(label) só é passado na etapa do treinamento. Agora precisamos passar um que não sabemos o resultado para saber se ele vai acertar
-        print(f"A laranja com peso {nova_laranja.x} e acidez {nova_laranja}")
-        acertou = "acertou" if palpite == nova_laranja.label else "errou"
-        print(f"A laranja com peso {nova_laranja.x} e acidez {nova_laranja.y} é do tipo {tipo} e está {acertou}")
 
-        ax.plot(nova_laranja.x, nova_laranja.y, 'o', color="orange", markersize=11, zorder=3)
+        palpite = perceptron.guess([0,0,1]) # inputs e bias?
+        resultado = "V" if palpite == 1 else "F"
+        print(f"F - F = {resultado}")
 
+        
+        """
+            palpite = perceptron.guess([1,1,1]) # 1 e 1, V e V
+            resultado = "V" if palpite == 1 else "F"
+            print(f"V - V = {resultado}")
+        """
 
     ax.set_title("Perceptron: Classificação no intervalo [-1, 1]")
 
