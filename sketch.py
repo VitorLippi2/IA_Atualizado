@@ -25,6 +25,9 @@ V V -> V (label 1)
 V F -> F (label -1)
 F V -> F (label -1)
 F F -> F (label -1)
+
+
+(( TENTE FAZER A TABELA OR ))
 """
 
 import random
