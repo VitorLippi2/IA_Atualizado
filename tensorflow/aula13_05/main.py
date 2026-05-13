@@ -23,7 +23,7 @@ print(raw_dataset.info())
 dataset = raw_dataset.copy()
 dataset = dataset.dropna()
 
-origin = dataset.drop("Origin")
+origin = dataset.pop("Origin")
 dataset["USA"] = (origin == 1) * 1.0
 dataset["Europe"] = (origin == 2) * 1.0
 dataset["Japan"] = (origin == 3) * 1.0
